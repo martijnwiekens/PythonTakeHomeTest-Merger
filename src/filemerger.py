@@ -23,7 +23,7 @@ class FileMerger:
             fileContents = file.readlines()
 
         # Find which lines have been changed in the target file
-        changedLines = cls.getChangedLineNumbersByChangeset(
+        changedLines = cls._getChangedLineNumbersByChangeset(
             changeSetBetweenBeforeAndTarget, logger
         )
 
@@ -48,7 +48,7 @@ class FileMerger:
                 # be.
                 checkLineNumber = (
                     changeItem["beforeHunkStartLine"]
-                    + cls.getLineOffset(
+                    + cls._getLineOffset(
                         changeItem["beforeHunkStartLine"],
                         changeSetBetweenBeforeAndTarget,
                         logger,
@@ -82,7 +82,7 @@ class FileMerger:
             appliedHunks += 1
 
             # Calculate the line offset for this hunk
-            fileLineOffset = cls.getLineOffset(
+            fileLineOffset = cls._getLineOffset(
                 changeItem["beforeHunkStartLine"],
                 changeSetBetweenBeforeAndTarget,
                 logger,
@@ -135,7 +135,7 @@ class FileMerger:
         return fileContents
 
     @classmethod
-    def getChangedLineNumbersByChangeset(
+    def _getChangedLineNumbersByChangeset(
         cls, changeList: list[IChangeItem], logger: logging.Logger
     ) -> list[int]:
         """Figure out what lines have been changed by a changeset"""
@@ -169,7 +169,7 @@ class FileMerger:
         return changedLineNumbers
 
     @classmethod
-    def getLineOffset(
+    def _getLineOffset(
         cls, lineNumber: int, changeList: list[IChangeItem], logger: logging.Logger
     ) -> int:
         """Figure out how much the before file and target file are offset from
