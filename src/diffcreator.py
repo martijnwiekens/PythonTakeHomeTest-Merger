@@ -19,7 +19,7 @@ class DiffCreator:
         unifiedDiff = cls._createDiff(file1Content, file2Content)
 
         # Parse the unified diff
-        changeList = cls.parse_unified_diff(unifiedDiff)
+        changeList = cls._parseUnifiedDiff(unifiedDiff)
 
         # Log how many changes were found
         logger.info("* Found %i changes" % len(changeList))
@@ -33,7 +33,7 @@ class DiffCreator:
         return list(difflib.unified_diff(file1Content, file2Content))
 
     @classmethod
-    def parse_unified_diff(cls, diff: list[str]) -> list[IChangeItem]:
+    def _parseUnifiedDiff(cls, diff: list[str]) -> list[IChangeItem]:
         # Create a list to store the changes
         changeList: list[IChangeItem] = []
 
