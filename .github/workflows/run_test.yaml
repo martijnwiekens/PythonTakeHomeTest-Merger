@@ -46,4 +46,4 @@ jobs:
 
       - name: Test with pytest
         run: |
-          poetry run pytest src
+          poetry run pytest --cov

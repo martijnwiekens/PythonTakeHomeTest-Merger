@@ -25,7 +25,7 @@ class MergeController:
         if beforeFilePath is None or afterFilePath is None or targetFilePath is None:
             # Check the arguments
             if len(sys.argv) < 4:
-                raise Exception("Not enough arguments")
+                raise ValueError("Not enough arguments")
 
             # Save the file paths
             beforeFilePath = sys.argv[1]
@@ -34,11 +34,11 @@ class MergeController:
 
         # Check if the file paths are valid
         if os.path.exists(beforeFilePath) is False:
-            raise Exception(f"File {beforeFilePath} does not exist")
+            raise FileNotFoundError(f"Before file {beforeFilePath} does not exist")
         if os.path.exists(afterFilePath) is False:
-            raise Exception(f"File {afterFilePath} does not exist")
+            raise FileNotFoundError(f"After file {afterFilePath} does not exist")
         if os.path.exists(targetFilePath) is False:
-            raise Exception(f"File {targetFilePath} does not exist")
+            raise FileNotFoundError(f"Target file {targetFilePath} does not exist")
 
         # Save the file paths
         self.beforeFilePath = beforeFilePath
